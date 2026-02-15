@@ -12,6 +12,7 @@ import { UserWithRefreshToken } from '../../security/jwt/refresh/refresh.strateg
 import { UserEntity } from '../user/user.entity';
 import { Cron } from '@nestjs/schedule';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { StringValue } from 'ms'
 
 @Injectable()
 export class AuthService {
@@ -72,7 +73,7 @@ export class AuthService {
     return this.jwtService.sign(payload, {
       expiresIn: this.configService.get<string>(
         token == 'access' ? 'ACCESS_TTL' : 'REFRESH_TTL',
-      ),
+      ) as StringValue,
       secret: this.configService.get<string>('JWT_SECRET'),
       ...options,
     });

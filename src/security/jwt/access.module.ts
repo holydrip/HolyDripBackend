@@ -6,6 +6,7 @@ import { AccessStrategy } from './access/access.strategy';
 import { RefreshStrategy } from './refresh/refresh.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { StringValue } from 'ms'
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
         signOptions: {
-          expiresIn: configService.get<string>('ACCESS_TTL'),
+          expiresIn: configService.get<string>('ACCESS_TTL') as StringValue,
         },
       }),
     }),
