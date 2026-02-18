@@ -43,7 +43,7 @@ model Category {
   id        String   @id @default(uuid())
   name      String   @unique
   sanityId  String   @unique
-  slug      String    @unique
+  slug      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -60,8 +60,8 @@ model Product {
   images String[] @default([])
 
   sanityId    String?  @unique
-   
-  category Category @relation(fields: [categoryId], references: [id])
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String @map("category_id")
   
   createdAt DateTime @default(now()) @map("created_at")
