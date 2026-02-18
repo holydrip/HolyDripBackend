@@ -22,6 +22,9 @@ async function bootstrap() {
   );
   app.useGlobalFilters(new PrismaExceptionFilter());
 
+  const port = process.env.PORT ?? 8800;
+  console.log('Starting on port:', port);
+
   const config = new DocumentBuilder()
     .setTitle('Holy-drip eCommerce shop API')
     .setDescription(
