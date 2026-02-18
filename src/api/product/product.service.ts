@@ -18,4 +18,12 @@ export class ProductService {
     async getByCategoryId(id: string): Promise<ProductEntity[]>{
         return this.productRepository.findByCategoryId(id);
     }
+
+    async upsertFromSanity(data: any) {
+        return await this.productRepository.upsertBySanityId(data);
+    }
+
+    async deleteBySanityId(sanityId: string) {
+        return await this.productRepository.deleteBySanityId(sanityId);
+    }
 }

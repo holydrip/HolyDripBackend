@@ -42,6 +42,8 @@ model RefreshToken {
 model Category {
   id        String   @id @default(uuid())
   name      String   @unique
+  sanityId  String   @unique
+  slug      String    @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -56,6 +58,8 @@ model Product {
   description String?
   price Decimal?
   images String[] @default([])
+
+  sanityId    String?  @unique
    
   category Category @relation(fields: [categoryId], references: [id])
   categoryId String @map("category_id")

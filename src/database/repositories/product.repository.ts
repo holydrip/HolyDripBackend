@@ -21,4 +21,39 @@ export class ProductRepository {
       where: { categoryId: id },
     });
   }
+
+  async upsertBySanityId(data: {
+    sanityId: string;
+    name: string;
+    slug: string;
+    price: number;
+    description: string;
+    images: string[];
+    categorySanityId?: string;
+  }) {
+    const { categorySanityId, ...productData } = data;
+
+    return this.prisma.product.upsert({
+      where: { sanityId: data.sanityId },
+      update: {
+        ...productData,
+        category: categorySanityId 
+          ? { connect: { sanityId: categorySanityId } } 
+          : undefined,
+      },
+      create: {
+        ...productData,
+        sanityId: data.sanityId,
+        category: categorySanityId 
+          ? { connect: { sanityId: categorySanityId } } 
+          : undefined,
+      },
+    });
+  }
+
+  async deleteBySanityId(sanityId: string) {
+    return this.prisma.product.delete({
+      where: { sanityId },
+    });
+  }
 }

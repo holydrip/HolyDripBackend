@@ -20,4 +20,32 @@ export class CategoryRepository {
         }
     })
   }
+
+  async upsertBySanityId(data: {
+    sanityId: string;
+    name: string;
+    slug: string;
+  }): Promise<CategoryEntity> {
+    return this.prisma.category.upsert({
+      where: { sanityId: data.sanityId },
+      update: {
+        name: data.name,
+        slug: data.slug,
+      },
+      create: {
+        sanityId: data.sanityId,
+        name: data.name,
+        slug: data.slug,
+      },
+      include: {
+        products: true,
+      },
+    });
+  }
+
+  async deleteBySanityId(sanityId: string) {
+    return this.prisma.category.delete({
+      where: { sanityId },
+    });
+  }
 }
