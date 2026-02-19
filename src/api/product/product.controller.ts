@@ -31,7 +31,7 @@ export class ProductController {
   @Post('')
   @ApiOperation({ summary: 'Sync product from Sanity' })
   async sync(@Body() body: ProductEntity & { action: 'create' | 'update' | 'delete'; categorySanityId?: string }) {
-    const { sanityId, name, price, description, images, categorySanityId, action } = body;
+    const { sanityId, name, price, description, images, categorySanityId, action, sizes } = body;
 
     if (action === 'delete') {
       return await this.productService.deleteBySanityId(sanityId);
@@ -47,6 +47,7 @@ export class ProductController {
       price: Number(price),
       description: description || '',
       images: cleanImages,
+      sizes,
       categorySanityId,
     });
   }
