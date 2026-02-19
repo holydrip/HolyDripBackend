@@ -28,6 +28,7 @@ export class ProductRepository {
     slug: string;
     price: number;
     description: string;
+    sizes: string[];
     images: string[];
     categorySanityId?: string;
   }) {

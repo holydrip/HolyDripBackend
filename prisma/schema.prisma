@@ -58,6 +58,7 @@ model Product {
   description String?
   price Decimal?
   images String[] @default([])
+  sizes  String[] @default([])
 
   sanityId    String?  @unique
 
